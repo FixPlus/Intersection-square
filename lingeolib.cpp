@@ -187,12 +187,12 @@ polygon_t polygon_t::cut_poly_by_line(line_t const & line, point_t const & half_
 		enum areas_t vert_side = line.get_side_area(vertices[i]); 
 
 		if((side == vert_side || vert_side == INTER_SIDE) && !ret.holding(vertices[i])) // half_space_pt side points and inter side points are both acceptable, also checking if it is already in ret
-			ret.vertices.insert(ret.vertices.end(), vertices[i]);
+			ret.add(vertices[i]);
 
 		point_t intersect = side_line_intersect(i, line);
 
-		if(intersect.valid() && !ret.holding(intersect)){
-			ret.vertices.insert(ret.vertices.end(), intersect);
+		if(intersect.valid()){
+			ret.add(intersect);
 
 
 		#ifdef LINGEO_DEV
@@ -318,6 +318,12 @@ void polygon_t::print() const {
 	}
 	std::cout << std::endl;
 }
+
+void polygon_t::add(point_t const &vert){
+	if(!holding(vert))
+		vertices.insert(vertices.end(), vert);
+}
+
 
 polygon_t& polygon_t::operator=(const polygon_t &poly){
 	vertices = poly.vertices;

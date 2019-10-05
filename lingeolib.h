@@ -58,6 +58,7 @@ namespace lingeo{
 		polygon_t cut_poly_by_line(line_t const & line, point_t const & half_space_pt) const; // returns the cutted polygon (which half of polygon will be cutted defines by half_space_pt)
 		polygon_t get_poly_intersection(polygon_t another) const;                             // returns the polygon that is the intersection of this and another
 
+		void add(point_t const &vert);
 		polygon_t& operator=(const polygon_t &poly);
 	};
 
